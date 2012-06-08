@@ -27,36 +27,36 @@ inline unsigned int md5string::I(uint4 x, uint4 y, uint4 z)
 
 inline void md5string::FF(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, uint4  s, uint4 ac)
 {
- a += F(b, c, d) + x + ac;
- a = rotate_left (a, s) +b;
+	a += F(b, c, d) + x + ac;
+	a = rotate_left (a, s) +b;
 }
 
 inline void md5string::GG(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac)
 {
- a += G(b, c, d) + x + ac;
- a = rotate_left (a, s) +b;
+	a += G(b, c, d) + x + ac;
+	a = rotate_left (a, s) +b;
 }
 
 inline void md5string::HH(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac)
 {
- a += H(b, c, d) + x + ac;
- a = rotate_left (a, s) +b;
+	a += H(b, c, d) + x + ac;
+	a = rotate_left (a, s) +b;
 }
 
 inline void md5string::II(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, uint4 s, uint4 ac)
 {
- a += I(b, c, d) + x + ac;
- a = rotate_left (a, s) +b;
+	a += I(b, c, d) + x + ac;
+	a = rotate_left (a, s) +b;
 }
 
 void md5string::MD5decode  (unsigned int *output, unsigned char *input, unsigned int len)
 {
+	unsigned int i, j;
 
-  unsigned int i, j;
-
-  for (i = 0, j = 0; j < len; i++, j += 4)
-    output[i] = ((unsigned int)input[j]) | (((unsigned int)input[j+1]) << 8) |
-      (((unsigned int)input[j+2]) << 16) | (((unsigned int)input[j+3]) << 24);
+	for (i = 0, j = 0; j < len; i++, j += 4)
+	{
+		output[i] = ((unsigned int)input[j]) | (((unsigned int)input[j+1]) << 8) | (((unsigned int)input[j+2]) << 16) | (((unsigned int)input[j+3]) << 24);
+	}
 }
 
 md5string::md5string(string str, string alpha, string init, uint4 start, uint4 end)
