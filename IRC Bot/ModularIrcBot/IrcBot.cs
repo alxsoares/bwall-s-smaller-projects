@@ -174,7 +174,119 @@ namespace ModularIrcBot
 
         void CheckMessage(MSG msg)
         {
-
+            if (msg.message.StartsWith(".stats"))
+            {
+                if (msg.message == ".stats")
+                    irc.SendMessage(msg.from, "Use \".stats <Module>\" for stats from a module or \".stats <Module> <Nick>\" to get all the stats for a nick in that module");
+                else if (msg.message.Split(' ').Length == 2)
+                {
+                    foreach (Module mod in modules)
+                    {
+                        if (mod.GetName().ToLower() == msg.message.Split(' ')[1].ToLower())
+                        {
+                            string stats = mod.GetStats();
+                            if (!string.IsNullOrEmpty(stats))
+                            {
+                                foreach (string line in stats.Split("\n".ToCharArray()))
+                                {
+                                    if (!string.IsNullOrEmpty(line))
+                                        irc.SendMessage(msg.to, mod.GetName() + " - " + line);
+                                }
+                            }
+                            else
+                            {
+                                irc.SendMessage(msg.to, "No stats for " + mod.GetName());
+                            }
+                        }
+                    }
+                }
+                else if (msg.message.Split(' ').Length == 3)
+                {
+                    foreach (Module mod in modules)
+                    {
+                        if (mod.GetName().ToLower() == msg.message.Split(' ')[1].ToLower())
+                        {
+                            string stats = mod.GetSpecificStats(msg.message.Split(' ')[2].ToLower());
+                            if (!string.IsNullOrEmpty(stats))
+                            {
+                                foreach (string line in stats.Split("\n".ToCharArray()))
+                                {
+                                    if (!string.IsNullOrEmpty(line))
+                                        irc.SendMessage(msg.to, mod.GetName() + " - " + line);
+                                }
+                            }
+                            else
+                            {
+                                irc.SendMessage(msg.to, "No stats for " + mod.GetName() + " " + msg.message.Split(' ')[2]);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (msg.message == ".help")
+            {
+                //Generate and send help info
+                irc.SendMessage(msg.to, "Here to help you!");
+                irc.SendMessage(msg.to, "List of Modules:");
+                foreach (Module mod in modules)
+                    irc.SendMessage(msg.to, "   " + mod.GetName());
+                irc.SendMessage(msg.to, "Say \".help <module name>\" to get help on specific modules");
+            }
+            else if (msg.message.StartsWith(".help ") && false)
+            {
+                string[] split = msg.message.Split(' ');
+                if (split.Length == 2)
+                {
+                    foreach (Module mod in modules)
+                    {
+                        if (mod.GetName().ToLower() == split[1].ToLower())
+                        {
+                            foreach (string line in mod.GetHelp().Split("\n".ToCharArray()))
+                                irc.SendMessage(msg.to, mod.GetName() + " - " + line);
+                        }
+                    }
+                }
+                else if (split.Length == 3)
+                {
+                    foreach (Module mod in modules)
+                    {
+                        if (mod.GetName().ToLower() == split[1].ToLower())
+                        {
+                            if (mod.GetSpecificHelp(split[2]) != null)
+                            {
+                                foreach (string line in mod.GetSpecificHelp(split[2].ToLower()).Split("\n".ToCharArray()))
+                                    irc.SendMessage(msg.to, mod.GetName() + " - " + split[2] + " - " + line);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (msg.message == ".commands")
+            {
+                foreach (Module mod in modules)
+                {
+                    if (mod.GetCommands() != null)
+                    {
+                        foreach (string line in mod.GetCommands().Split("\n".ToCharArray()))
+                            irc.SendMessage(msg.to, mod.GetName() + " - " + line);
+                    }
+                }
+            }
+            else if (msg.message.StartsWith(".commands "))
+            {
+                string[] split = msg.message.Split(' ');
+                if (split.Length == 2)
+                {
+                    foreach (Module mod in modules)
+                    {
+                        if (mod.GetName().ToLower() == split[1].ToLower())
+                        {
+                            foreach (string line in mod.GetCommands().Split("\n".ToCharArray()))
+                                irc.SendMessage(msg.to, mod.GetName() + " - " + line);
+                        }
+                    }
+                }
+            }
         }
 
         void PrivMessage(MSG msg)

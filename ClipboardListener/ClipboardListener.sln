@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Password Manager Sniffer", "Password Manager Sniffer\Password Manager Sniffer.vcxproj", "{B2341F59-2358-4948-B398-1051D1B489D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
+		Debug|x86 = Debug|x86
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2341F59-2358-4948-B398-1051D1B489D9}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{B2341F59-2358-4948-B398-1051D1B489D9}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{B2341F59-2358-4948-B398-1051D1B489D9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B2341F59-2358-4948-B398-1051D1B489D9}.Debug|Win32.Build.0 = Debug|Win32
+		{B2341F59-2358-4948-B398-1051D1B489D9}.Debug|x86.ActiveCfg = Debug|Win32
+		{B2341F59-2358-4948-B398-1051D1B489D9}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{B2341F59-2358-4948-B398-1051D1B489D9}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{B2341F59-2358-4948-B398-1051D1B489D9}.Release|Win32.ActiveCfg = Release|Win32
+		{B2341F59-2358-4948-B398-1051D1B489D9}.Release|Win32.Build.0 = Release|Win32
+		{B2341F59-2358-4948-B398-1051D1B489D9}.Release|x86.ActiveCfg = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
