@@ -87,6 +87,7 @@
             // 
             this.textBoxInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxInput.Location = new System.Drawing.Point(3, 3);
+            this.textBoxInput.MaxLength = 3276700;
             this.textBoxInput.Multiline = true;
             this.textBoxInput.Name = "textBoxInput";
             this.textBoxInput.Size = new System.Drawing.Size(480, 334);

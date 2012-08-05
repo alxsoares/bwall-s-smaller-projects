@@ -1,0 +1,3 @@
+(ClipboardListener (Running) - Microsoft Visual Studio):https://github.com/bwall/bwall-s-smaller-projects/tree/master/ClipboardListener
+(KeePass Password Safe):8AcVdspsX0aNZoCvXd00
+(Password Safe - C:\Users\bwall\Documents\My Safes\pwsafe.psafe3):BallastSecurity

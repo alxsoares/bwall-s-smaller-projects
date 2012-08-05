@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1342582667 source:c:\users\bwall\documents\github\bwall-s-smaller-projects\testopencl\testopencl\main.cpp
+	<fcntl.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<time.h>
+	<CL/cl.h>
+	"include/SHA256.h"
+
+1342578892 source:c:\users\bwall\documents\github\bwall-s-smaller-projects\testopencl\testopencl\src\blob.cpp
+	"../include/Blob.h"
+
+1342578875 c:\users\bwall\documents\github\bwall-s-smaller-projects\testopencl\testopencl\include\blob.h
+	<string.h>
+
+1342581785 source:c:\users\bwall\documents\github\bwall-s-smaller-projects\testopencl\testopencl\src\passkey.cpp
+	"../include/PassKey.h"
+
+1342581717 c:\users\bwall\documents\github\bwall-s-smaller-projects\testopencl\testopencl\include\passkey.h
+	<string.h>
+	<iostream>
+	<iomanip>
+	"Blob.h"
+	"SHA256.h"
+
+1342583181 source:c:\users\bwall\documents\github\bwall-s-smaller-projects\testopencl\testopencl\src\sha256.cpp
+	"../include/SHA256.h"
+
+1342583105 c:\users\bwall\documents\github\bwall-s-smaller-projects\testopencl\testopencl\include\sha256.h
+	<string.h>
+
+1342585001 source:c:\users\bwall\documents\github\bwall-s-smaller-projects\testopencl\testopencl\src\oclcracker.cpp
+	"../include/OCLCracker.h"
+
+1342585395 c:\users\bwall\documents\github\bwall-s-smaller-projects\testopencl\testopencl\include\oclcracker.h
+	<CL/cl.h>
+	<stdio.h>
+
