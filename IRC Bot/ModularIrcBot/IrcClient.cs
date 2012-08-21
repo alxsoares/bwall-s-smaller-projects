@@ -442,7 +442,7 @@ namespace ModularIrcBot
                         }
                         catch(Exception e)
                         { 
-                            Console.WriteLine("Client error: (" + e.Message + ") Errored netcode: " + received); 
+                            Console.WriteLine(DateTime.Now.ToLongTimeString() + ": Client error: (" + e.Message + ") Errored netcode: " + received); 
                         }
                     }
                 }

