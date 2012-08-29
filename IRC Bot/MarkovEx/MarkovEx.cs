@@ -536,18 +536,25 @@ namespace MarkovEx
 
         void ProcessMessage(object o)
         {
-            MSG msg = new MSG(((MSG)o).ToString());
-            lastMSG = msg;
-            msg.message = msg.message.ToLower().Replace("\"", "").Replace("\r", "").Replace("\n", "").Replace(";", "").Replace("!", "").Replace("?", "").Replace(".", "").Replace(",", "").Replace("'", "").Replace(":", "");
-            File.AppendAllText(server.Data + Path.DirectorySeparatorChar + "logs.dat", "\n>" + msg.message);
-            zzn.AddSentence(msg.message);
-
-            if (rand.Next(100) < TalkValue)
+            try
             {
-                string s = zzn.GenerateResponse(msg.message);
-                if (string.IsNullOrEmpty(s))
-                    return;
-                irc.SendMessage(msg.to, s);
+                MSG msg = new MSG(((MSG)o).ToString());
+                lastMSG = msg;
+                msg.message = msg.message.ToLower().Replace("\"", "").Replace("\r", "").Replace("\n", "").Replace(";", "").Replace("!", "").Replace("?", "").Replace(".", "").Replace(",", "").Replace("'", "").Replace(":", "");
+                File.AppendAllText(server.Data + Path.DirectorySeparatorChar + "logs.dat", "\n>" + msg.message);
+                zzn.AddSentence(msg.message);
+
+                if (rand.Next(100) < TalkValue)
+                {
+                    string s = zzn.GenerateResponse(msg.message);
+                    if (string.IsNullOrEmpty(s))
+                        return;
+                    irc.SendMessage(msg.to, s);
+                }
+            }
+            catch
+            {
+                Console.WriteLine(DateTime.Now.ToLongTimeString() + ": Oops in markovex");
             }
         }        
 

@@ -14,6 +14,7 @@ namespace Markov
         MSG lastMSG = null;
         Random rand = new Random();
         string ReportTo = null;
+        int TalkValue = 5;
 
         public override void AddBindings()
         {
@@ -25,6 +26,10 @@ namespace Markov
         {
             ReportTo = msg.from;
             msg.message = msg.message.Substring(msg.message.IndexOf(' ') + 1);
+            if (msg.message.StartsWith("TalkValue "))
+            {
+                TalkValue = int.Parse(msg.message.Substring(msg.message.IndexOf(' ') + 1));
+            }
             if (msg.message.StartsWith("value "))
             {
                 string s = GetPrivateValue(msg.message.Substring(msg.message.IndexOf(' ') + 1));
@@ -121,12 +126,12 @@ namespace Markov
             lastMSG = msg;
             //msg.message = msg.message.ToLower().Replace("\"", "").Replace("\r", "").Replace("\n", "").Replace(";", "").Replace("!", "").Replace("?", "").Replace(".", "").Replace(",", "").Replace("'", "").Replace(":", "");
             msg.message += " ";
-            //Learn(msg.message);
+            Learn(msg.message);
 
-            if (rand.Next() % 100 < 100 || true)
+            if (rand.Next() % 100 < TalkValue)
             {
                 string s = Reply(msg);
-                if (string.IsNullOrEmpty(s))
+                if (string.IsNullOrEmpty(s) || s.Contains("lol"))
                     return;
                 irc.SendMessage(msg.to, s);
                 //irc.SendMessage(ReportTo, "Markov - " + s);
